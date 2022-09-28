@@ -1,3 +1,5 @@
 joi
 cors
+jsonwebtoken
+http-status-codes
 @types/cors
