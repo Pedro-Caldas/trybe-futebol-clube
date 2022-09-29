@@ -1,20 +1,27 @@
 import * as express from 'express';
-import UserRoutes from './routes/UserRoutes';
+import UsersRoutes from './routes/UsersRoutes';
+import TeamsRoutes from './routes/TeamsRoutes';
 
 class App {
   public app: express.Express;
-  private _userRoutes: UserRoutes;
+  private _usersRoutes: UsersRoutes;
+  private _teamsRoutes: TeamsRoutes;
 
-  constructor(userRoutes = new UserRoutes()) {
+  constructor(
+    usersRoutes = new UsersRoutes(),
+    teamsRoutes = new TeamsRoutes(),
+  ) {
     this.app = express();
 
     this.config();
 
-    this._userRoutes = userRoutes;
+    this._usersRoutes = usersRoutes;
+    this._teamsRoutes = teamsRoutes;
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
-    this.app.use('/login', this._userRoutes.route);
+    this.app.use('/login', this._usersRoutes.route);
+    this.app.use('/teams', this._teamsRoutes.route);
   }
 
   private config():void {

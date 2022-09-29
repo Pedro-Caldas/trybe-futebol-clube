@@ -8,7 +8,7 @@ import IRole from '../interfaces/IRole';
 
 const JWT_SECRET = 'jwt_secret';
 
-export default class UserService {
+export default class UsersService {
   private _userModel = UserModel;
 
   public async login(email: string, password: string): Promise<IToken | null> {
@@ -21,10 +21,10 @@ export default class UserService {
     return token as IToken;
   }
 
-  public loginValidate = async (authorization: string): Promise<IRole> => {
+  public async loginValidate(authorization: string): Promise<IRole> {
     const decodedToken = jwt.decode(authorization) as IDecoded;
     const { id } = decodedToken;
     const userFound = await this._userModel.findOne({ where: { id }, raw: true }) as IUser;
     return userFound?.role as unknown as IRole;
-  };
+  }
 }

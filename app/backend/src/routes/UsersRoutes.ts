@@ -1,29 +1,29 @@
 import { Router, Request, Response } from 'express';
-import UserController from '../controllers/UserController';
+import UsersController from '../controllers/UsersController';
 import LoginMiddleware from '../middlewares/LoginMiddleware';
 
 export default class UserRoutes {
   public route: Router;
-  private _userController: UserController;
+  private _usersController: UsersController;
   private _loginMiddleware: LoginMiddleware;
 
   constructor(
-    userController = new UserController(),
+    usersController = new UsersController(),
     loginMiddleware = new LoginMiddleware(),
   ) {
     this.route = Router();
-    this._userController = userController;
+    this._usersController = usersController;
     this._loginMiddleware = loginMiddleware;
 
     this.route.post(
       '/',
       this._loginMiddleware.bodyValidation,
-      (req: Request, res: Response) => this._userController.login(req, res),
+      (req: Request, res: Response) => this._usersController.login(req, res),
     );
 
     this.route.get(
       '/validate',
-      (req: Request, res: Response) => this._userController.loginValidate(req, res),
+      (req: Request, res: Response) => this._usersController.loginValidate(req, res),
     );
   }
 }

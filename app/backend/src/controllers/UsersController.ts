@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import UserService from '../services/UserService';
+import UsersService from '../services/UsersService';
 
 export default class UserController {
-  constructor(private _userService = new UserService()) { }
+  constructor(private _usersService = new UsersService()) { }
 
   public async login(req: Request, res: Response): Promise<void | unknown> {
     const { email, password } = req.body;
 
-    const token = await this._userService.login(email, password);
+    const token = await this._usersService.login(email, password);
     if (token === null) {
       return res.status(StatusCodes.UNAUTHORIZED)
         .json({ message: 'Incorrect email or password' });
@@ -19,7 +19,7 @@ export default class UserController {
   public async loginValidate(req: Request, res: Response): Promise<void> {
     const { authorization } = req.headers;
     if (authorization) {
-      const role = await this._userService.loginValidate(authorization);
+      const role = await this._usersService.loginValidate(authorization);
       res.status(StatusCodes.OK).json({ role });
     }
   }
