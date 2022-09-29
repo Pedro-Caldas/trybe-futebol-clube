@@ -15,4 +15,12 @@ export default class UserController {
     }
     res.status(StatusCodes.OK).json({ token });
   }
+
+  public async loginValidate(req: Request, res: Response) {
+    const { authorization } = req.headers;
+    if (authorization) {
+      const role = await this._userService.loginValidate(authorization);
+      res.status(StatusCodes.OK).json({ role });
+    }
+  }
 }

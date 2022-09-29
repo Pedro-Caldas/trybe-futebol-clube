@@ -17,8 +17,13 @@ export default class UserRoutes {
 
     this.route.post(
       '/',
-      this._loginMiddleware.validation,
+      this._loginMiddleware.bodyValidation,
       (req: Request, res: Response) => this._userController.login(req, res),
+    );
+
+    this.route.get(
+      '/validate',
+      (req: Request, res: Response) => this._userController.loginValidate(req, res),
     );
   }
 }

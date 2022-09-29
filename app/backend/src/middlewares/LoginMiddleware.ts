@@ -5,7 +5,7 @@ import UserModel from '../database/models';
 export default class LoginMiddleware {
   constructor(private _userModel = UserModel) { }
 
-  public validation = (req: Request, res: Response, next: NextFunction) => {
+  public bodyValidation = (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
 
     if (!email) {
