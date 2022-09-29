@@ -5,7 +5,7 @@ import UserService from '../services/UserService';
 export default class UserController {
   constructor(private _userService = new UserService()) { }
 
-  public async login(req: Request, res: Response) {
+  public async login(req: Request, res: Response): Promise<void | unknown> {
     const { email, password } = req.body;
 
     const token = await this._userService.login(email, password);
@@ -16,7 +16,7 @@ export default class UserController {
     res.status(StatusCodes.OK).json({ token });
   }
 
-  public async loginValidate(req: Request, res: Response) {
+  public async loginValidate(req: Request, res: Response): Promise<void> {
     const { authorization } = req.headers;
     if (authorization) {
       const role = await this._userService.loginValidate(authorization);
