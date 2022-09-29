@@ -15,5 +15,10 @@ export default class TeamsRoutes {
       '/',
       (req: Request, res: Response) => this._teamsController.findAll(req, res),
     );
+
+    this.route.get(
+      '/:id',
+      (req: Request, res: Response) => this._teamsController.findOne(req, res),
+    );
   }
 }

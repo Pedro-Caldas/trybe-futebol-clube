@@ -1,3 +1,4 @@
+import ITeam from '../interfaces/ITeam';
 import ITeams from '../interfaces/ITeams';
 import TeamModel from '../database/models/team';
 
@@ -6,7 +7,11 @@ export default class TeamsService {
 
   public async findAll(): Promise<ITeams> {
     const result = await this._teamModel.findAll();
-    console.log(result);
     return result as unknown as ITeams;
+  }
+
+  public async findOne(id: number): Promise<ITeam> {
+    const result = await this._teamModel.findByPk(id);
+    return result as ITeam;
   }
 }
