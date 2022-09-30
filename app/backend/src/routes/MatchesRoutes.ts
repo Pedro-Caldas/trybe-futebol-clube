@@ -17,6 +17,9 @@ export default class MatchesRoutes {
       (req: Request, res: Response) => this._matchesController.create(req, res),
     );
 
+    this.route.patch('/:id/', (req: Request, res: Response) => this._matchesController
+      .update(req, res));
+
     this.route.patch('/:id/finish', (req: Request, res: Response) => this._matchesController
       .changeProgress(req, res));
   }

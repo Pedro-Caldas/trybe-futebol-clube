@@ -47,6 +47,13 @@ export default class MatchesController {
     return res.status(StatusCodes.CREATED).json(result);
   }
 
+  public async update(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    await this._matchesService.update(homeTeamGoals, awayTeamGoals, Number(id));
+    res.status(StatusCodes.OK).json({ message: 'Match updated' });
+  }
+
   public async changeProgress(req: Request, res: Response): Promise<void> {
     const { id } = req.params;
     await this._matchesService.changeProgress(Number(id));
