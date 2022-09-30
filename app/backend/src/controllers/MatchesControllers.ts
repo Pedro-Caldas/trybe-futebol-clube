@@ -1,9 +1,13 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
 
 export default class MatchesController {
-  constructor(private _matchesService = new MatchesService()) { }
+  constructor(
+    private _matchesService = new MatchesService(),
+    private _teamsService = new TeamsService(),
+  ) { }
 
   public async findAll(req: Request, res: Response): Promise<void> {
     const { inProgress } = req.query;
@@ -17,17 +21,23 @@ export default class MatchesController {
     res.status(StatusCodes.OK).json(result);
   }
 
-  public async create(req: Request, res: Response): Promise<void> {
+  public async create(req: Request, res: Response) {
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
 
+    const verifiedTeams = await this._teamsService.verifyTeams(homeTeam, awayTeam);
+    if (verifiedTeams === null) {
+      return res.status(StatusCodes.NOT_FOUND)
+        .json({ message: 'There is no team with such id!' });
+    }
+
+    if (homeTeam === awayTeam) {
+      return res.status(StatusCodes.UNAUTHORIZED)
+        .json({ message: 'It is not possible to create a match with two equal teams' });
+    }
+
     const result = await this._matchesService
-      .create(
-        homeTeam,
-        awayTeam,
-        homeTeamGoals,
-        awayTeamGoals,
-      );
-    res.status(StatusCodes.CREATED).json(result);
+      .create(homeTeam, awayTeam, homeTeamGoals, awayTeamGoals);
+    return res.status(StatusCodes.CREATED).json(result);
   }
 
   public async changeProgress(req: Request, res: Response): Promise<void> {

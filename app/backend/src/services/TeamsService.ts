@@ -13,4 +13,13 @@ export default class TeamsService {
     const result = await this._teamModel.findByPk(id);
     return result as ITeam;
   }
+
+  public async verifyTeams(homeTeam: number, awayTeam: number) {
+    const foundHomeTeam = await this._teamModel.findByPk(homeTeam);
+    const foundAwayTeam = await this._teamModel.findByPk(awayTeam);
+    if (!foundHomeTeam || !foundAwayTeam) {
+      return null;
+    }
+    return true;
+  }
 }
