@@ -15,15 +15,16 @@ export default class MatchesRoutes {
     this._matchesController = matchesController;
     this._loginMiddleware = loginMiddleware;
 
-    this.route.get(
-      '/',
-      (req: Request, res: Response) => this._matchesController.findAll(req, res),
-    );
+    this.route.get('/', (req: Request, res: Response) => this._matchesController
+      .findAll(req, res));
 
     this.route.post(
       '/',
       this._loginMiddleware.tokenValidation,
       (req: Request, res: Response) => this._matchesController.create(req, res),
     );
+
+    this.route.patch('/:id/finish', (req: Request, res: Response) => this._matchesController
+      .changeProgress(req, res));
   }
 }

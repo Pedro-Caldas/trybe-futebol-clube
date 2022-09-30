@@ -29,4 +29,10 @@ export default class MatchesController {
       );
     res.status(StatusCodes.CREATED).json(result);
   }
+
+  public async changeProgress(req: Request, res: Response): Promise<void> {
+    const { id } = req.params;
+    await this._matchesService.changeProgress(Number(id));
+    res.status(StatusCodes.OK).json({ message: 'Finished' });
+  }
 }

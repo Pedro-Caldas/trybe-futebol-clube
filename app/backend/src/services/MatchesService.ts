@@ -31,9 +31,13 @@ export default class MatchesService {
     awayTeam: number,
     homeTeamGoals: number,
     awayTeamGoals: number,
-  ) {
+  ): Promise<IMatch> {
     const result = await this._matchModel
       .create({ homeTeam, awayTeam, homeTeamGoals, awayTeamGoals });
     return result;
+  }
+
+  public async changeProgress(id: number) {
+    await this._matchModel.update({ inProgress: false }, { where: { id } });
   }
 }
