@@ -5,24 +5,33 @@ import IUser from '../interfaces/IUser';
 import IToken from '../interfaces/IToken';
 import IDecoded from '../interfaces/IDecoded';
 import IRole from '../interfaces/IRole';
+import CustomError from '../errors/CustomError';
 
 const JWT_SECRET = 'jwt_secret';
 
 export default class UsersService {
   private _userModel = UserModel;
 
-  public async login(email: string, password: string): Promise<IToken | null> {
+  public async login(email: string, password: string): Promise<IToken> {
     const userFound = await this._userModel.findOne({ where: { email } }) as IUser;
-    if (!userFound) return null;
-    if (!bcrypt.compareSync(password, userFound.password)) return null;
 
-    const { id } = userFound;
-    const token = jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' }) as unknown as IToken;
+    if (!userFound || !bcrypt.compareSync(password, userFound.password)) {
+      throw new CustomError(401, 'UNAUTHORIZED', 'Incorrect email or password');
+    }
+
+    const token = jwt.sign(
+      { id: userFound.id },
+      JWT_SECRET,
+      { expiresIn: '7d' },
+    ) as unknown as IToken;
     return token as IToken;
   }
 
-  public async loginValidate(authorization: string): Promise<IRole> {
+  public async tokenValidate(authorization: string): Promise<IRole> {
     const decodedToken = jwt.decode(authorization) as IDecoded;
+
+    if (!decodedToken) throw new CustomError(401, 'UNAUTHORIZED', 'Token must be a valid token');
+
     const { id } = decodedToken;
     const userFound = await this._userModel.findOne({ where: { id }, raw: true }) as IUser;
     return userFound?.role as unknown as IRole;

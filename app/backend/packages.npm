@@ -1,5 +1,6 @@
 joi
 cors
 jsonwebtoken
+express-async-errors
 http-status-codes
 @types/cors

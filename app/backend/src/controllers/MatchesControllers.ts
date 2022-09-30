@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import UsersService from '../services/UsersService';
 import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
 
@@ -7,6 +8,7 @@ export default class MatchesController {
   constructor(
     private _matchesService = new MatchesService(),
     private _teamsService = new TeamsService(),
+    private _userService = new UsersService(),
   ) { }
 
   public async findAll(req: Request, res: Response): Promise<void> {
@@ -22,12 +24,17 @@ export default class MatchesController {
   }
 
   public async create(req: Request, res: Response) {
+    const { authorization } = req.headers;
     const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = req.body;
 
+    if (!authorization) {
+      return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Invalid token' });
+    }
+    await this._userService.tokenValidate(authorization);
+
     const verifiedTeams = await this._teamsService.verifyTeams(homeTeam, awayTeam);
-    if (verifiedTeams === null) {
-      return res.status(StatusCodes.NOT_FOUND)
-        .json({ message: 'There is no team with such id!' });
+    if (!verifiedTeams) {
+      return res.status(StatusCodes.NOT_FOUND).json({ message: 'There is no team with such id!' });
     }
 
     if (homeTeam === awayTeam) {

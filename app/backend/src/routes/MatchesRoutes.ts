@@ -1,5 +1,4 @@
 import { Router, Request, Response } from 'express';
-import LoginMiddleware from '../middlewares/LoginMiddleware';
 import MatchesController from '../controllers/MatchesControllers';
 
 export default class MatchesRoutes {
@@ -7,7 +6,6 @@ export default class MatchesRoutes {
 
   constructor(
     private _matchesController = new MatchesController(),
-    private _loginMiddleware = new LoginMiddleware(),
   ) {
     this.route = Router();
 

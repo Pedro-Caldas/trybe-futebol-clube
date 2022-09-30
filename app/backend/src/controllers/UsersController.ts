@@ -1,18 +1,15 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
+import CustomError from '../errors/CustomError';
 import UsersService from '../services/UsersService';
 
 export default class UserController {
   constructor(private _usersService = new UsersService()) { }
 
-  public async login(req: Request, res: Response): Promise<void | unknown> {
+  public async login(req: Request, res: Response): Promise<void> {
     const { email, password } = req.body;
 
     const token = await this._usersService.login(email, password);
-    if (token === null) {
-      return res.status(StatusCodes.UNAUTHORIZED)
-        .json({ message: 'Incorrect email or password' });
-    }
     res.status(StatusCodes.OK).json({ token });
   }
 
@@ -20,10 +17,9 @@ export default class UserController {
     const { authorization } = req.headers;
 
     if (authorization) {
-      const role = await this._usersService.loginValidate(authorization);
+      const role = await this._usersService.tokenValidate(authorization);
       return res.status(StatusCodes.OK).json({ role });
     }
-    return res.status(StatusCodes.UNAUTHORIZED)
-      .json({ message: 'Invalid token' });
+    throw new CustomError(401, 'UNAUTHORIZED', 'Invalid token');
   }
 }
