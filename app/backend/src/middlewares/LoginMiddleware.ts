@@ -28,7 +28,7 @@ export default class LoginMiddleware {
     const userRole = await this._userService.loginValidate(authorization as string);
     if (!userRole) {
       res.status(StatusCodes.UNAUTHORIZED)
-        .json({ message: 'Invalid token' });
+        .json({ message: 'Token must be a valid token' });
     }
 
     next();
