@@ -11,5 +11,8 @@ export default class LeaderboardRoutes {
 
     this.route.get('/home', (req: Request, res: Response) => this._leaderboardController
       .findHomeLeaderboard(req, res));
+
+    this.route.get('/away', (req: Request, res: Response) => this._leaderboardController
+      .findAwayLeaderboard(req, res));
   }
 }

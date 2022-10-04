@@ -1,7 +1,7 @@
 import TeamModel from '../database/models/team';
 import MatchModel from '../database/models/matches';
 
-export default class LeaderboardService {
+export default class HomeLeaderboardService {
   private _matchModel = MatchModel;
   private _teamModel = TeamModel;
 
@@ -23,16 +23,6 @@ export default class LeaderboardService {
       return homeMatches;
     });
     return teamsHomeMatches;
-  }
-
-  public async getAwayMatches() {
-    const teams = await this.getTeams();
-    const matches = await this.getFinishedMatches();
-    const teamsAwayMatches = teams.map((team) => {
-      const awayMatches = matches.filter((match) => match.awayTeam === team.id);
-      return awayMatches;
-    });
-    return teamsAwayMatches;
   }
 
   public async getTotalHomeGames() {
