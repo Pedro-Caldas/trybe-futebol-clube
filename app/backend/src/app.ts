@@ -3,6 +3,7 @@ import 'express-async-errors';
 import UsersRoutes from './routes/UsersRoutes';
 import TeamsRoutes from './routes/TeamsRoutes';
 import MatchesRoutes from './routes/MatchesRoutes';
+import LeaderboardRoutes from './routes/LeaderboardRoutes';
 import errorMiddleware from './middlewares/ErrorMiddleware';
 
 class App {
@@ -10,11 +11,13 @@ class App {
   private _usersRoutes: UsersRoutes;
   private _teamsRoutes: TeamsRoutes;
   private _matchesRoutes: MatchesRoutes;
+  private _leaderboardRoutes: LeaderboardRoutes;
 
   constructor(
     usersRoutes = new UsersRoutes(),
     teamsRoutes = new TeamsRoutes(),
     matchesRoutes = new MatchesRoutes(),
+    leaderboardRoutes = new LeaderboardRoutes(),
   ) {
     this.app = express();
 
@@ -23,12 +26,14 @@ class App {
     this._usersRoutes = usersRoutes;
     this._teamsRoutes = teamsRoutes;
     this._matchesRoutes = matchesRoutes;
+    this._leaderboardRoutes = leaderboardRoutes;
 
     // Não remover essa rota
     this.app.get('/', (req, res) => res.json({ ok: true }));
     this.app.use('/login', this._usersRoutes.route);
     this.app.use('/teams', this._teamsRoutes.route);
     this.app.use('/matches', this._matchesRoutes.route);
+    this.app.use('/leaderboard', this._leaderboardRoutes.route);
     this.app.use(errorMiddleware);
   }
 
