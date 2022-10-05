@@ -1,3 +1,4 @@
+import ILeaderboard from '../interfaces/ILeaderboard';
 import TeamModel from '../database/models/team';
 import MatchModel from '../database/models/matches';
 
@@ -120,13 +121,13 @@ export default class HomeLeaderboardService {
     return homeLeaderboard;
   }
 
-  public async getHomeLeaderboard() {
+  public async getHomeLeaderboard(): Promise<ILeaderboard[]> {
     const unsortedHomeLeaderboard = await this.getUnsortedHomeLeaderboard();
     const homeLeaderboard = unsortedHomeLeaderboard.sort((a, b) => b.totalPoints - a.totalPoints
       || b.totalVictories - a.totalVictories
       || b.goalsBalance - a.goalsBalance
       || b.goalsFavor - a.goalsFavor
       || b.goalsOwn - a.goalsOwn);
-    return homeLeaderboard;
+    return homeLeaderboard as unknown as ILeaderboard[];
   }
 }

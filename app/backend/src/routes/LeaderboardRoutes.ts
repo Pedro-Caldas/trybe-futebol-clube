@@ -9,6 +9,9 @@ export default class LeaderboardRoutes {
   ) {
     this.route = Router();
 
+    this.route.get('/', (req: Request, res: Response) => this._leaderboardController
+      .findLeaderboard(req, res));
+
     this.route.get('/home', (req: Request, res: Response) => this._leaderboardController
       .findHomeLeaderboard(req, res));
 
