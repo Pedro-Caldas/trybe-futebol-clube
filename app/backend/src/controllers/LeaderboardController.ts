@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import LeaderboardService from '../services/LeaderboardService';
 import HomeLeaderboardsService from '../services/HomeLeaderboardService';
 import AwayLeaderboardsService from '../services/AwayLeaderboardService';
+import LeaderboardService from '../services/LeaderboardService';
 
 export default class LeaderboardController {
   constructor(
-    private _leaderboardService = new LeaderboardService(),
     private _homeLeaderboardsService = new HomeLeaderboardsService(),
     private _awayLeaderboardsService = new AwayLeaderboardsService(),
+    private _leaderboardService = new LeaderboardService(),
   ) { }
 
   public async findHomeLeaderboard(req: Request, res: Response) {
