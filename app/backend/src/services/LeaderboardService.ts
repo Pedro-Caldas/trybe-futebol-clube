@@ -12,7 +12,7 @@ export default class LeaderboardService {
   ) { }
 
   public async getTeams() {
-    const teams = await this._teamModel.findAll({ raw: true });
+    const teams = await this._teamModel.findAll();
     return teams;
   }
 
@@ -39,7 +39,7 @@ export default class LeaderboardService {
         goalsOwn: acc.goalsOwn + record.goalsOwn,
         goalsBalance: acc.goalsBalance + record.goalsBalance,
         efficiency: (((acc.totalPoints + record.totalPoints)
-        / ((acc.totalGames + record.totalGames) * 3)) * 100).toFixed(2),
+        / ((acc.totalGames + record.totalGames) * 3)) * 100).toFixed(2) as unknown as number,
       }));
     });
     return concatLeaderboards;

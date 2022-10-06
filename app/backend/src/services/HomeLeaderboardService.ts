@@ -7,12 +7,12 @@ export default class HomeLeaderboardService {
   private _teamModel = TeamModel;
 
   public async getTeams() {
-    const teams = await this._teamModel.findAll({ raw: true });
+    const teams = await this._teamModel.findAll();
     return teams;
   }
 
   public async getFinishedMatches() {
-    const matches = await this._matchModel.findAll({ where: { inProgress: false }, raw: true });
+    const matches = await this._matchModel.findAll({ where: { inProgress: false } });
     return matches;
   }
 
@@ -62,7 +62,7 @@ export default class HomeLeaderboardService {
   public async getTotalPoints() {
     const victories = await this.getVictories();
     const drawsPoints = await this.getDraws();
-    const totalPoints = victories.map((victory, index) => victory * 3 + drawsPoints[index]);
+    const totalPoints = victories.map((victory, index) => (victory * 3) + drawsPoints[index]);
     return totalPoints;
   }
 

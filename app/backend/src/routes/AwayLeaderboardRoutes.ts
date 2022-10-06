@@ -1,7 +1,7 @@
 import { Router, Request, Response } from 'express';
 import LeaderboardController from '../controllers/LeaderboardController';
 
-export default class LeaderboardRoutes {
+export default class AwayLeaderboardRoutes {
   public route: Router;
 
   constructor(
@@ -10,6 +10,6 @@ export default class LeaderboardRoutes {
     this.route = Router();
 
     this.route.get('/', (req: Request, res: Response) => this._leaderboardController
-      .findLeaderboard(req, res));
+      .findAwayLeaderboard(req, res));
   }
 }
