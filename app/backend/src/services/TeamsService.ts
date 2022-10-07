@@ -5,7 +5,7 @@ export default class TeamsService {
   private _teamModel = TeamModel;
 
   public async findAll(): Promise<ITeam[]> {
-    const result = await this._teamModel.findAll();
+    const result = await this._teamModel.findAll({ raw: true });
     return result as ITeam[];
   }
 

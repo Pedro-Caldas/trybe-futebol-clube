@@ -13,9 +13,8 @@ export default class UsersService {
   private _userModel = UserModel;
 
   public async login(email: string, password: string): Promise<IToken> {
-    const userFound = await this._userModel.findOne({ where: { email } }) as IUser;
-
-    if (!userFound || !bcrypt.compareSync(password, userFound.password)) {
+    const userFound = await this._userModel.findOne({ where: { email }, raw: true }) as IUser;
+    if (!userFound || !bcrypt.compare(password, userFound.password)) {
       throw new CustomError(401, 'UNAUTHORIZED', 'Incorrect email or password');
     }
 
