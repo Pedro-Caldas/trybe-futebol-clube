@@ -4,6 +4,7 @@ import MatchModel from '../database/models/matches';
 
 export default class MatchesService {
   private _matchModel = MatchModel;
+  private _teamModel = Team;
 
   public async findAll(): Promise<IMatch[]> {
     const result = await this._matchModel.findAll({
@@ -24,6 +25,15 @@ export default class MatchesService {
       .findAll({ include: [{ model: Team, as: 'teamHome', attributes: { exclude: ['id'] } },
         { model: Team, as: 'teamAway', attributes: { exclude: ['id'] } }],
       where: { inProgress: false } }) as unknown as IMatch[];
+  }
+
+  public async verifyTeams(homeTeam: number, awayTeam: number) {
+    const foundHomeTeam = await this._teamModel.findByPk(homeTeam);
+    const foundAwayTeam = await this._teamModel.findByPk(awayTeam);
+    if (!foundHomeTeam || !foundAwayTeam) {
+      return null;
+    }
+    return true;
   }
 
   public async create(

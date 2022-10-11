@@ -1,13 +1,11 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import UsersService from '../services/UsersService';
-import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
 
 export default class MatchesController {
   constructor(
     private _matchesService = new MatchesService(),
-    private _teamsService = new TeamsService(),
     private _userService = new UsersService(),
   ) { }
 
@@ -32,7 +30,7 @@ export default class MatchesController {
     }
     await this._userService.tokenValidate(authorization);
 
-    const verifiedTeams = await this._teamsService.verifyTeams(homeTeam, awayTeam);
+    const verifiedTeams = await this._matchesService.verifyTeams(homeTeam, awayTeam);
     if (!verifiedTeams) {
       return res.status(StatusCodes.NOT_FOUND).json({ message: 'There is no team with such id!' });
     }
