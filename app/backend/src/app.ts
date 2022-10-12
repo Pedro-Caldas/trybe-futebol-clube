@@ -4,14 +4,10 @@ import UsersRoutes from './routes/UsersRoutes';
 import TeamsRoutes from './routes/TeamsRoutes';
 import MatchesRoutes from './routes/MatchesRoutes';
 import LeaderboardRoutes from './routes/LeaderboardRoutes';
-import HomeLeaderboardRoutes from './routes/HomeLeaderboardRoutes';
-import AwayLeaderboardRoutes from './routes/AwayLeaderboardRoutes';
 import errorMiddleware from './middlewares/ErrorMiddleware';
 
 class App {
   public app: express.Express;
-  private _homeLeaderboardRoutes: HomeLeaderboardRoutes = new HomeLeaderboardRoutes();
-  private _awayLeaderboardRoutes: AwayLeaderboardRoutes = new AwayLeaderboardRoutes();
 
   constructor(
     private _usersRoutes: UsersRoutes = new UsersRoutes(),
@@ -27,8 +23,6 @@ class App {
     this.app.use('/teams', this._teamsRoutes.route);
     this.app.use('/matches', this._matchesRoutes.route);
     this.app.use('/leaderboard', this._leaderboardRoutes.route);
-    this.app.use('/leaderboard/home', this._homeLeaderboardRoutes.route);
-    this.app.use('/leaderboard/away', this._awayLeaderboardRoutes.route);
     this.app.use(errorMiddleware);
   }
 
