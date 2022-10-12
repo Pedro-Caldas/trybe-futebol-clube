@@ -7,6 +7,8 @@ We had to build the application's back-end from scratch during the project while
 
 The back-end was mainly made using **TypeScript**,  **Node.js** and **Express.js**. To handle the database (and structure it with migrations), we built the MSC *model layer* using the ORM tool **Sequelize**, which also facilitates future changes to the code and database. Users authentications and authorizations were made using **JWT** (JSON Web Token). Finally, the project has more than **80%** test coverage, developed using **Mocha**, **Chai** and **Sinon**.
 
+<img src="https://user-images.githubusercontent.com/94147604/195465592-2bc2393e-ab07-4316-93fd-0a97ef09fe73.jpg" width="500">
+
 <br>
 
 ## Main used technologies:
