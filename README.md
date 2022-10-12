@@ -42,7 +42,7 @@ After running docker-compose, you can go into the **back-end directory** and use
 You can interact with the backend API through an **HTTP client** (Insomnia, Postman, HTTPie, etc.) and **make requests to it**. Down below is a list of the **endpoints**.
 
 <details>
-  <summary>Endpoint for <i>Users / Login</i></summary>
+  <summary>Endpoint for <i>Login</i></summary>
   <ul>
   <li>post('/');</li>
   <li>post('/validate');</li>
