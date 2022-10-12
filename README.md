@@ -35,7 +35,7 @@ To run the application on your machine, you need to have <a href="https://www.do
 
 Once the repository is cloned, get inside the application's **root directory** and use the command `npm install`, then enter the **directory app** and use the command `docker-compose up -d` to run the orchestrated docker. From that point on, you can access and utilize the application (via the front-end) locally in your browser using **Port 3000**.
 
-After running docker-compose, you can go into the **back-end directory** and use the `npm run dev` command to use it. For the front-end, enter the **front-end directory** and use the `npm start` command. To check the test coverage, use the command npm run test:coverage inside the **back-end directory**.
+After running docker-compose, you can go into the **back-end directory** and use the `npm run dev` command to use it. For the front-end, enter the **front-end directory** and use the `npm start` command. To check the test coverage, use the command `npm run test:coverage` inside the **back-end directory**.
 
 <br>
 
