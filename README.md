@@ -1,7 +1,7 @@
 # Project Trybe Futebol Clube
 
 ## Description
-**Trybe Futebol Clube** is a complete website built on its front-end, back-end and database layers. The application is made for managing football championship info. It has features such as the visualization of teams, matches and leaderboards, besides adding and updating new matches - which change the leaderboards.
+**Trybe Futebol Clube** is a complete website built on its front-end, back-end and database layers. The application is made for managing football championships info. It has features such as the visualization of teams, matches and leaderboards, besides adding and updating new matches - which change the leaderboards.
 
 We had to build the application's back-end from scratch during the project while the Trybe team provided the front-end. Among other developed structures, we have the main one, which is a **RESTful API** that connects the two ends of the application using **OOP** and **SOLID**. It is responsible for authenticating and authorizing users to use different **CRUD** endpoints and is organized in an **MSC** (model, service and control) architecture.
 
@@ -43,7 +43,6 @@ You can interact with the backend API through an **HTTP client** (Insomnia, Post
 
 <details>
   <summary>Endpoint for <i>Users / Login</i></summary>
-  <br>
   <ul>
   <li>post('/');</li>
   <li>post('/validate');</li>
@@ -52,7 +51,6 @@ You can interact with the backend API through an **HTTP client** (Insomnia, Post
 
 <details>
   <summary>Endpoints for <i>Teams</i></summary>
-  <br>
   <ul>
   <li>get('/');</li>
   <li>get('/:id');</li>
@@ -61,7 +59,6 @@ You can interact with the backend API through an **HTTP client** (Insomnia, Post
 
 <details>
   <summary>Endpoints for <i>Matches</i></summary>
-  <br>
   <ul>
   <li>post('/');</li>
   <li>get('/');</li>
@@ -72,7 +69,6 @@ You can interact with the backend API through an **HTTP client** (Insomnia, Post
 
 <details>
   <summary>Endpoints for <i>Leaderboards</i></summary>
-  <br>
   <ul>
   <li>get('/');</li>
   <li>get('/home');</li>
